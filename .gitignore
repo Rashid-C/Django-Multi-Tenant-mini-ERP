@@ -1,0 +1,55 @@
+# --- Python Virtual Environments ---
+venv/
+.venv/
+env/
+ENV/
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# --- Python Bytecode & Cache ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Django Specifics ---
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# --- Tenant & Media Uploads ---
+# In an ERP, clients will upload private PDFs, invoices, and logos.
+# Never commit these to version control.
+media/
+staticfiles/
+/static_root/
+
+# --- Environment Variables & Secrets ---
+# Crucial for multi-tenant database credentials, domain hosts, and secret keys
+.env
+.env.[a-zA-Z]*
+!.env.example
+secrets.json
+
+# --- Operating System Files ---
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# --- IDEs and Code Editors ---
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

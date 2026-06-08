@@ -23,3 +23,26 @@ class TenantMiddleware:
             return JsonResponse({'error': 'Invalid or inactive Tenant.'}, status=403)
 
         return self.get_response(request)
+    
+    
+    
+class TenantSecurityMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        if request.path.startswith('/admin/'):
+            return self.get_response(request)
+
+        # If the user is authenticated via JWT
+        if request.user.is_authenticated:
+            # Lock the request context strictly to the user's assigned tenant
+            request.tenant = request.user.profile.tenant
+        else:
+            # Fallback for open registration/login endpoints using the header
+            tenant_id = request.headers.get('X-Tenant-ID')
+            if not tenant_id:
+                return JsonResponse({'error': 'Authentication or Tenant Header required.'}, status=401)
+            # ... resolve tenant from header like before
+            
+        return self.get_response(request)
